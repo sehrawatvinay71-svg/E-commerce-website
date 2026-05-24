@@ -1,11 +1,11 @@
 import "./Modal.css";
 function Modal({show, onClose,children}) {
-    if (show === false){
+    if (!show){
         return null;
     }
     return(
         <div className="backdrop" onClick={onClose}>
-            <div className="modal">
+            <div className="modal" onClick={(event)=>event.stopPropagation()}>
                 {children}
             </div>
         </div>
