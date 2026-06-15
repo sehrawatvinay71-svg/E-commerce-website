@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import "./AddProduct.css"
+import AppContext from "../../store/app-context";
 
-function AddProduct({showAddProduct,onCloseAddProduct,onAddProduct}){
+function AddProduct(){
+    const {showAddProduct,onCloseAddProduct,handleAddProduct} = useContext(AppContext);
     const [productName, setProductName] = useState("");
     //const nameRef = useRef();
     function handleSubmit(event){
         event.preventDefault();
         //const nameValue = nameRef.current.value;
-        onAddProduct(productName);
+        handleAddProduct(productName);
 
     }
 

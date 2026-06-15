@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import Modal from "../UI/Modal";
 import "./Cart.css"
+import AppContext from "../../store/app-context";
 
-function CartItem({id, name, image, quantity,onIncQuantity,onDecQuantity}){
+function CartItem({id, name, image, quantity}){
+    const {handleIncreaseQuantity,handleDecreaseQuantity}=useContext(AppContext);
     return <div className="cart-item">
         <div className="item-img">
             <img src = {require(`../../assets/${image}`)} alt="name"/>        
@@ -11,12 +14,12 @@ function CartItem({id, name, image, quantity,onIncQuantity,onDecQuantity}){
             <div>
                 <div>Qty: {quantity}</div>
                 <div>
-                    <button className="yellow-button qty-button qty-plus-button" onClick={()=>onIncQuantity(id)}>
+                    <button className="yellow-button qty-button qty-plus-button" onClick={()=>handleIncreaseQuantity(id)}>
                         +
                     </button>
                 </div>
                 <div>
-                    <button className="yellow-button qty-button qty-plus-button" onClick={()=>onDecQuantity(id)}>
+                    <button className="yellow-button qty-button qty-plus-button" onClick={()=>handleDecreaseQuantity(id)}>
                         -
                     </button>
                 </div>
@@ -25,7 +28,8 @@ function CartItem({id, name, image, quantity,onIncQuantity,onDecQuantity}){
     </div>;
 }
 
-function Cart({showCart, closeCart, cartItems,onIncQuantity,onDecQuantity}) {
+function Cart() {
+    const {showCart,closeCart,cartItems} = useContext(AppContext);
     return (
     <Modal show = {showCart} onClose = {closeCart}>
         <div className="cart-container">
@@ -38,8 +42,6 @@ function Cart({showCart, closeCart, cartItems,onIncQuantity,onDecQuantity}) {
                             name = {item.name} 
                             image = {item.image}
                             quantity = {item.quantity}
-                            onIncQuantity = {onIncQuantity}
-                            onDecQuantity = {onDecQuantity}
                         />
                     ))
                 ):(

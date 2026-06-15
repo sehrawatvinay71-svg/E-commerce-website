@@ -1,24 +1,31 @@
+import { useContext } from "react";
 import "./products.css";
+import AppContext from "../../store/app-context";
+import Loader from "../UI/Loader";
 
-function Product({id,name,image,onAddToCart}){
+function Product({key,id,name,image}){
+    const {handleAddToCart} = useContext(AppContext);
     return(
          <div key={id} className="product">
                 <img src = {require(`../../assets/${image}`)} alt="name"/>
                 <div className="product-name">{name}</div>
-                <button className="yellow-button" onClick={()=>onAddToCart(id,name,image)}>Add to Cart</button>
+                <button className="yellow-button" onClick={()=>handleAddToCart(id,name,image)}>Add to Cart</button>
         </div>
     );
 }
 
-function Products({products,onAddToCart}){
+function Products(){
+    const {products, loading} = useContext(AppContext);
+    if(loading){
+        return <Loader />
+    } 
     return <div className="products-container">
-        {products.map(product => (
+        {Object.keys(products).map((k) => (
             <Product
-             key={product.id}
-             id = {product.id}
-             name={product.name}
-             image={product.image}
-             onAddToCart = {onAddToCart}
+             key={k}
+             id = {products[k].id}
+             name={products[k].name}
+             image={products[k].image}
             />
            ))}
     </div>;

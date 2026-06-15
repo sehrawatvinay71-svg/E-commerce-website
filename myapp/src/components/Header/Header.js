@@ -1,7 +1,9 @@
+import AppContext from "../../store/app-context";
 import "./Header.css";
-function Header({openCart,openAddProduct}){
+import { useContext } from "react";
 
-    
+function Header(){
+    const {openCart, openAddProduct} = useContext(AppContext);
     return (
     <div className="header">
         <h1>My React Store</h1>
